@@ -3,10 +3,14 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(
+  75, window.innerWidth / window.innerHeight, 0.1, 1000
+);
 
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('#bg'),
+  // Antialias will make the cube bounderies smooth
+  antialias: true,
 });
 
 renderer.setPixelRatio(window.devicePixelRatio);
@@ -35,6 +39,16 @@ camera.position.z = 5;
 function animate() {
   requestAnimationFrame(animate);
 
+  // The below assignment of 0.01 works on the FPS supported
+  // by the system. So, the system with 30 FPS will have different
+  // animation speed than the system with 60 FPS.
+  // To solve this issue and make it uniform, we need to use the
+  // elapsed time from THREE.Clock().
+  // Eg.
+  //  let clock = THREE.Clock()
+  //  cube.rotation.x = clock.getElapsedTime()
+  // If we have to make the cube animation faster, we can do:
+  //  cube.rotation.x = clock.getElapsedTime() * 5
   cube.rotation.x += 0.01;
   cube.rotation.y += 0.01;
 
