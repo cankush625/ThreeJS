@@ -23,6 +23,9 @@ const material = new THREE.MeshBasicMaterial({map: ankushTexture});
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+
 // MeshStandardMaterial requires light source inorder to make it visible
 const pointLight = new THREE.PointLight(0xffffff);
 pointLight.position.set(5, 5, 5);
